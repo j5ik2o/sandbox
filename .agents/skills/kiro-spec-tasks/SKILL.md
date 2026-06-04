@@ -52,6 +52,9 @@ After all parallel research completes, synthesize findings before generating tas
 
 **Generate task list following all rules**:
 - Use language specified in spec.json
+- Render every natural-language heading, task title, task detail bullet, summary, and final response in the language specified in spec.json.
+- Treat English examples in rules/templates as structural examples only; do not copy their English wording into generated `tasks.md` unless spec.json language is English.
+- Keep machine-readable labels (`_Requirements:_`, `_Boundary:_`, `_Depends:_`), code identifiers, package names, API names, and domain terms already written in English unchanged when appropriate.
 - Map all requirements to tasks
 - When documenting requirement coverage, list numeric requirement IDs only (comma-separated) without descriptive suffixes, parentheses, translations, or free-form labels
 - Ensure all design components included
@@ -76,6 +79,9 @@ After all parallel research completes, synthesize findings before generating tas
   - Each executable sub-task includes an observable completion bullet
   - No implicit prerequisites remain hidden
   - `_Depends:_`, `_Boundary:_`, and `(P)` markers still match the dependency graph and architecture boundaries
+- Review language compliance:
+  - Natural-language headings, task titles, detail bullets, summary, and final response use `spec.json.language`
+  - English template phrases such as "Implementation Plan", "Foundation", "Build", "Validate", and "Task Format Template" are not present in `tasks.md` unless the target language is English
 - If issues are task-plan-local, repair the draft and re-run the review gate before writing
 - Keep the review bounded to at most 2 repair passes
 - If review exposes a real requirements/design gap or contradiction, stop and send the user back to requirements/design instead of inventing filler tasks
@@ -92,6 +98,7 @@ Before writing `tasks.md`, run one lightweight independent sanity review of the 
   - boundary overlap or ambiguous ownership between tasks
   - tasks that are too large, too vague, cross boundaries without being explicit integration tasks, or are missing a verifiable deliverable
   - contradictions introduced between requirements, design, and the task graph
+  - generated natural-language content is not in the wrong language for `spec.json.language`
 - Return one verdict:
   - `PASS`
   - `NEEDS_FIXES`
