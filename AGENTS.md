@@ -67,6 +67,7 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 
 Read these rules before implementing:
 
+.agents/rules/*.md
 .agents/rules/**/*.md
 
 ---
