@@ -19,27 +19,25 @@ Matt Pocock の engineering skills は `CLAUDE.md`及び`AGENTS.md` に設定す
 - Agent operating docs: `docs/agents/`
 - Kiro steering: `.kiro/steering/`
 - Kiro feature specs: `.kiro/specs/**`
-- OpenSpec public contracts: `openspec/**`
 - Review exclusion config: `.coderabbit.yml`, `.coderabbit.yaml`
 
 ## Domain / Spec Decision Preflight
 
-Kiro / SDD / OpenSpec / 設計レビュー / 実装計画に入る前に、`Project Context Sources` のうち対象作業に関係するものを設計判断の入力として確認する。
+Kiro / SDD / 設計レビュー / 実装計画に入る前に、`Project Context Sources` のうち対象作業に関係するものを設計判断の入力として確認する。
 
 - Domain terminology が存在する場合、canonical terms / avoid terms / invariants を前提として扱う。
 - Accepted decisions が存在する場合、既に受け入れられた不可逆な設計判断として扱う。
 - Kiro steering / Kiro feature specs が存在する場合、project-wide steering と feature-level requirements / design / tasks を前提として扱う。
-- OpenSpec public contracts が存在する場合、public contract / capability-level requirements を前提として扱う。
 
 未定義のドメイン用語を見つけた場合は、直接 `CONTEXT.md` に追加せず、`/domain-modeling` または `/grill-with-docs` 経由で用語を確定する。
 
 Accepted decisions と矛盾する spec / design を見つけた場合は、黙って上書きせず矛盾を明示する。
 
-ADR は spec の台帳ではない。Kiro / OpenSpec に、不可逆・非自明・trade-off を伴う設計判断が含まれる場合のみ `/domain-modeling` 経由で ADR 化を検討する。
+ADR は spec の台帳ではない。Kiro / SDD に、不可逆・非自明・trade-off を伴う設計判断が含まれる場合のみ `/domain-modeling` 経由で ADR 化を検討する。
 
 ## Domain / Spec Terminology Reconciliation
 
-Kiro / SDD / OpenSpec の requirements / design / tasks / review を生成または更新した後は、次の phase、design validation、implementation、PR 化へ進む前に、spec 内のドメイン用語・契約名・境界名を Domain terminology と照合する。Domain terminology が未作成の場合は、照合先が未作成であることを前提に進める。
+Kiro / SDD の requirements / design / tasks / review を生成または更新した後は、次の phase、design validation、implementation、PR 化へ進む前に、spec 内のドメイン用語・契約名・境界名を Domain terminology と照合する。Domain terminology が未作成の場合は、照合先が未作成であることを前提に進める。
 
 - `CONTEXT.md` に未登録のプロジェクト固有のドメイン用語、契約名、境界名を見つけた場合は、glossary gap として扱い、`/domain-modeling` または `/grill-with-docs` 経由で用語を確定してから `CONTEXT.md` に登録する。
 - ただし、一般的な技術語、ファイル名、関数名、単発の実装詳細、一次的な作業ラベルは `CONTEXT.md` に登録しない。
