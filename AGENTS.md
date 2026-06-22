@@ -4,38 +4,47 @@
 
 ## Agent skills
 
-Matt Pocock の engineering skills は `CLAUDE.md`及び`AGENTS.md` と `docs/agents/` に設定する。
+Matt Pocock の engineering skills は `CLAUDE.md`及び`AGENTS.md` に設定する。補助ドキュメントとして `docs/agents/` が存在する場合は、該当ファイルも参照する。
 
-- Issue tracker: GitHub Issues を使う。詳細は `docs/agents/issue-tracker.md` を見る。
-- Triage labels: mattpocock/skills の default labels を使う。詳細は `docs/agents/triage-labels.md` を見る。
-- Domain docs: single-context repo として root `CONTEXT.md` と `docs/adr/` を使う。詳細は `docs/agents/domain.md` を見る。
+- Issue tracker: GitHub Issues を使う。`docs/agents/issue-tracker.md` があれば詳細を確認する。
+- Triage labels: mattpocock/skills の default labels を使う。`docs/agents/triage-labels.md` があれば詳細を確認する。
+- Domain docs: single-context repo として root `CONTEXT.md` と `docs/adr/` を使う。`docs/agents/domain.md` があれば詳細を確認する。
+
+## Project Context Sources
+
+このひな型では、project context source は任意である。存在するものだけを読み、存在しない場合は未作成として扱う。未作成であることだけを理由に作業を止めず、現在ある情報で進める。不足が設計判断に影響する場合だけ、人間に確認する。
+
+- Domain terminology: `CONTEXT.md`, `CONTEXT-MAP.md`
+- Accepted decisions: `docs/adr/`
+- Agent operating docs: `docs/agents/`
+- Kiro steering: `.kiro/steering/`
+- Kiro feature specs: `.kiro/specs/**`
+- OpenSpec public contracts: `openspec/**`
+- Review exclusion config: `.coderabbit.yml`, `.coderabbit.yaml`
 
 ## Domain / Spec Decision Preflight
 
-Kiro / SDD / OpenSpec / 設計レビュー / 実装計画に入る前に、必ず以下を設計判断の入力として確認する。
+Kiro / SDD / OpenSpec / 設計レビュー / 実装計画に入る前に、`Project Context Sources` のうち対象作業に関係するものを設計判断の入力として確認する。
 
-- root `CONTEXT.md`: canonical terms / avoid terms / invariants
-- root `CONTEXT-MAP.md` があれば関連 context
-- `docs/adr/`: 既に受け入れられた不可逆な設計判断
-- `.kiro/steering/`: project-wide steering / product / tech / structure
-- `.kiro/specs/**`: feature-level requirements / design / tasks
-- `openspec/**`: public contract / capability-level requirements
-
-`CONTEXT.md` の canonical terms / avoid terms / invariants、ADR の制約、Kiro / OpenSpec の仕様は、requirements / design / tasks / review / implementation の前提として扱う。
+- Domain terminology が存在する場合、canonical terms / avoid terms / invariants を前提として扱う。
+- Accepted decisions が存在する場合、既に受け入れられた不可逆な設計判断として扱う。
+- Kiro steering / Kiro feature specs が存在する場合、project-wide steering と feature-level requirements / design / tasks を前提として扱う。
+- OpenSpec public contracts が存在する場合、public contract / capability-level requirements を前提として扱う。
 
 未定義のドメイン用語を見つけた場合は、直接 `CONTEXT.md` に追加せず、`/domain-modeling` または `/grill-with-docs` 経由で用語を確定する。
 
-既存 ADR と矛盾する spec / design を見つけた場合は、黙って上書きせず矛盾を明示する。
+Accepted decisions と矛盾する spec / design を見つけた場合は、黙って上書きせず矛盾を明示する。
 
 ADR は spec の台帳ではない。Kiro / OpenSpec に、不可逆・非自明・trade-off を伴う設計判断が含まれる場合のみ `/domain-modeling` 経由で ADR 化を検討する。
 
 ## Domain / Spec Terminology Reconciliation
 
-Kiro / SDD / OpenSpec の requirements / design / tasks / review を生成または更新した後は、次の phase、design validation、implementation、PR 化へ進む前に、必ず spec 内のドメイン用語・契約名・境界名を `CONTEXT.md` と照合する。
+Kiro / SDD / OpenSpec の requirements / design / tasks / review を生成または更新した後は、次の phase、design validation、implementation、PR 化へ進む前に、spec 内のドメイン用語・契約名・境界名を Domain terminology と照合する。Domain terminology が未作成の場合は、照合先が未作成であることを前提に進める。
 
 - `CONTEXT.md` に未登録のプロジェクト固有のドメイン用語、契約名、境界名を見つけた場合は、glossary gap として扱い、`/domain-modeling` または `/grill-with-docs` 経由で用語を確定してから `CONTEXT.md` に登録する。
 - ただし、一般的な技術語、ファイル名、関数名、単発の実装詳細、一次的な作業ラベルは `CONTEXT.md` に登録しない。
 - spec 側で同じ概念を `CONTEXT.md` と異なる表記で書いている場合は、spec を `CONTEXT.md` の canonical term に合わせて修正する。
+- `CONTEXT.md` が未作成で、プロジェクト固有用語が設計判断に影響する場合は、`/domain-modeling` または `/grill-with-docs` 経由で Domain terminology の作成を検討する。
 - tasks 生成前、design validation 前、implementation 前、PR 化前には、この照合が完了していることを確認する。
 
 ## Review exclusion settings
